@@ -63,3 +63,30 @@ document.getElementById("capture").addEventListener("click", () => {
 
     alert("Foto berhasil diambil!");
 });
+
+//Location
+const options = {
+    maximumAge: 0,
+    enableHighAccuracy: true,
+    timeout: 15000,
+};
+
+const success = (pos) => {
+    const coords = pos.coords;
+    const latitude = coords.latitude;
+    const longitude = coords.longitude;
+
+    // Tampilkan lokasi dalam form
+    document.getElementById("lokasiInput").innerHTML =
+        `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+    console.log(`Lokasi Anda: ${latitude}, ${longitude}`);
+};
+
+const error = (err) => {
+    console.log(`Gagal mendapatkan lokasi: ${err.message}`);
+    document.getElementById("lokasiInput").textContent = "Gagal mendapatkan lokasi.";
+};
+
+// Panggil geolocation saat halaman dimuat
+navigator.geolocation.getCurrentPosition(success, error, options);
