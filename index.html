@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi NFC</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Absensi Online</h1>
+    <form action="https://script.google.com/macros/s/AKfycbxxm41e2X6VDyLrU25cRWcNzAZvuAKecPtzPDiz3N0yBxqpqeWOr5q3utt2iAQxpPLh/exec"
+          method="post" enctype="multipart/form-data" id="absensiForm">
+
+        <!-- NFC Scan -->
+        <div class="form-group">
+            <label for="nfcData">Scan Kartu NFC</label>
+            <p id="nfcData" class="input-static">Menunggu scan...</p>
+            <button type="button" id="startNfc" class="btn">Mulai Scan NFC</button>
+        </div>
+
+        <!-- Data Form -->
+        <div id="formSection" style="display: none;">
+            <div class="form-group">
+                <label for="lokasiInput">Lokasi Anda</label>
+                <p id="lokasiInput" class="input-static">Mendeteksi lokasi...</p>
+            </div>
+
+            <div class="form-group">
+                <label for="inputNama">Nama Lengkap</label>
+                <input type="text" id="inputNama" name="inputNama" placeholder="Masukkan nama Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="inputNPP">NPP</label>
+                <input type="text" id="inputNPP" name="inputNPP" placeholder="Masukkan NPP Anda" required>
+            </div>
+
+            <!-- Kamera -->
+            <div class="form-group">
+                <label for="inputFoto">Ambil Foto</label>
+                <div class="camera">
+                    <video id="video" autoplay></video>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <button type="button" id="capture" class="btn" disabled>Capture Foto</button>
+                <input type="hidden" id="inputFoto" name="foto">
+            </div>
+
+            <button type="submit" class="btn submit-btn">Kirim Data</button>
+        </div>
+    </form>
+</div>
+
+<div class="link-container">
+    <p>
+        Lihat data absensi di
+        <a href="https://docs.google.com/spreadsheets/d/1cL1VhyTap6kFuTdmJ_isPgKo4V3yHfHZn5WfVjjTsNg/edit?usp=sharing"
+           target="_blank">Google Sheets</a>
+    </p>
+</div>
+
+<script src="./script/script.js"></script>
+</body>
+</html>
