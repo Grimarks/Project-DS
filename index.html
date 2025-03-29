@@ -67,6 +67,17 @@
                 <input type="text" id="inputSemester" name="inputSemester" placeholder="Masukkan Semester Anda" required>
             </div>
 
+            <!-- Kamera -->
+            <div class="form-group">
+                <label for="inputFoto">Ambil Foto</label>
+                <div class="camera">
+                    <video id="video" autoplay></video>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <button type="button" id="capture" class="btn" disabled>Capture Foto</button>
+                <input type="hidden" id="inputFoto" name="foto">
+            </div>
+
             <button type="submit" class="btn submit-btn">Kirim Data</button>
         </div>
     </form>
