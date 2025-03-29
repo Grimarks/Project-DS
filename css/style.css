@@ -7,8 +7,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    gap: 20px;
+    min-height: 100vh;
+    padding: 20px; /* Agar tidak terlalu mepet di layar kecil */
+    box-sizing: border-box;
 }
 
 .container {
@@ -19,10 +20,12 @@ body {
     width: 90%;
     max-width: 500px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 h1 {
     margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 .form-group {
@@ -34,6 +37,7 @@ label {
     font-weight: bold;
     margin-bottom: 5px;
     display: inline-block;
+    font-size: 1rem;
 }
 
 .input-static {
@@ -41,6 +45,9 @@ label {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 input[type="text"] {
@@ -48,30 +55,37 @@ input[type="text"] {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
+/* Bagian Kamera */
 .camera {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap; /* Agar video dan canvas tidak saling menekan di layar kecil */
+    justify-content: center;
     gap: 10px;
     margin-top: 10px;
 }
 
 video, canvas {
-    width: 48%;
+    width: 100%; /* Video dan Canvas memenuhi layar di mode mobile */
+    max-width: 220px; /* Batasan agar tetap proporsional di layar besar */
+    height: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
 
+/* Tombol */
 .btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s;
+    font-weight: bold;
 }
 
 .btn:hover {
@@ -82,4 +96,29 @@ video, canvas {
 .submit-btn {
     background: #4facfe;
     color: white;
+}
+
+/* 📌 Responsif untuk layar kecil (Mobile) */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    label, input, .input-static, .btn {
+        font-size: 0.9rem;
+    }
+
+    .camera {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    video, canvas {
+        width: 100%;
+        max-width: 100%;
+    }
 }
