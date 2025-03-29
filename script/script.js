@@ -7,22 +7,38 @@ document.getElementById("startNfc").addEventListener("click", async () => {
         await reader.scan();
 
         reader.onreading = event => {
-            let nfcContent = "";
-
+            let rawData = "";
             for (const record of event.message.records) {
                 const textDecoder = new TextDecoder();
-                const decodedData = textDecoder.decode(record.data);
-                nfcContent += `<p><strong>${record.recordType}:</strong> ${decodedData}</p>`;
+                rawData += textDecoder.decode(record.data) + "\n";
             }
 
-            document.getElementById("nfcData").innerHTML = nfcContent || "Data NFC tidak terbaca.";
+            document.getElementById("nfcData").innerText = rawData || "Data NFC tidak terbaca.";
             nfcScanned = true;
 
-            // Aktifkan form setelah NFC berhasil
+            // Parsing Data NFC
+            const regex = /Name:\s*(.+)\nNIM:\s*(.+)\nJurusan:\s*(.+)/;
+            const match = rawData.match(regex);
+
+            if (match) {
+                document.getElementById("inputNama").value = match[1].trim();
+                document.getElementById("inputNIM").value = match[2].trim();
+                document.getElementById("inputJurusan").value = match[3].trim();
+            } else {
+                alert("Format data NFC tidak valid!");
+            }
+
+            // Set tanggal dan waktu otomatis
+            const now = new Date();
+            const tanggal = now.toLocaleDateString('id-ID');
+            const waktu = now.toLocaleTimeString('id-ID');
+
+            document.getElementById("tanggalHidden").value = tanggal;
+            document.getElementById("waktuHidden").value = waktu;
+
+            // Tampilkan form tanpa scan NFC
             document.getElementById("formSection").style.display = "block";
             document.getElementById("capture").disabled = false;
-
-            // Aktifkan kamera
             activateCamera();
         };
     } catch (error) {
@@ -30,6 +46,11 @@ document.getElementById("startNfc").addEventListener("click", async () => {
         document.getElementById("nfcData").textContent = "NFC tidak didukung atau gagal membaca!";
     }
 });
+
+// // Bypass NFC dan langsung tampilkan form
+// document.getElementById("formSection").style.display = "block";
+// document.getElementById("capture").disabled = false;
+
 
 // Aktifkan Kamera
 function activateCamera() {
@@ -64,7 +85,7 @@ document.getElementById("capture").addEventListener("click", () => {
     alert("Foto berhasil diambil!");
 });
 
-//Location
+// Mendapatkan lokasi otomatis
 const options = {
     maximumAge: 0,
     enableHighAccuracy: true,
@@ -75,12 +96,15 @@ const success = (pos) => {
     const coords = pos.coords;
     const latitude = coords.latitude;
     const longitude = coords.longitude;
+    const lokasiString = `Latitude: ${latitude}, Longitude: ${longitude}`;
 
     // Tampilkan lokasi dalam form
-    document.getElementById("lokasiInput").innerHTML =
-        `Latitude: ${latitude}, Longitude: ${longitude}`;
+    document.getElementById("lokasiInput").innerHTML = lokasiString;
 
-    console.log(`Lokasi Anda: ${latitude}, ${longitude}`);
+    // Simpan lokasi ke input hidden agar terkirim saat submit
+    document.getElementById("lokasiHidden").value = lokasiString;
+
+    console.log(`Lokasi Anda: ${lokasiString}`);
 };
 
 const error = (err) => {
