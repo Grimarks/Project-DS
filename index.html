@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1>Absensi Online</h1>
-    <form action="https://script.google.com/macros/s/AKfycbxxm41e2X6VDyLrU25cRWcNzAZvuAKecPtzPDiz3N0yBxqpqeWOr5q3utt2iAQxpPLh/exec"
+    <form action="https://script.google.com/macros/s/AKfycbwwNxYRNEpbseQ5SbP3IA5ZZWCmL5uaEnIZaExcRtcKhqKuuRe5VaypQXMznHhSBt0m/exec"
           method="post" enctype="multipart/form-data" id="absensiForm">
 
         <!-- NFC Scan -->
@@ -24,17 +24,45 @@
             <div class="form-group">
                 <label for="lokasiInput">Lokasi Anda</label>
                 <p id="lokasiInput" class="input-static">Mendeteksi lokasi...</p>
+                <!-- Input hidden untuk menyimpan lokasi -->
+                <input type="hidden" id="lokasiHidden" name="lokasiInput">
+
             </div>
 
             <div class="form-group">
                 <label for="inputNama">Nama Lengkap</label>
+<!--                Tidak perlu ada Input lagi dari user, semuanya langsung ngambil data dari kartu NFC-->
                 <input type="text" id="inputNama" name="inputNama" placeholder="Masukkan nama Anda" required>
             </div>
 
             <div class="form-group">
-                <label for="inputNPP">NPP</label>
-                <input type="text" id="inputNPP" name="inputNPP" placeholder="Masukkan NPP Anda" required>
+                <label for="inputNIM">NIM</label>
+                <input type="text" id="inputNIM" name="inputNIM" placeholder="Masukkan NIM Anda" required>
             </div>
+
+            <!-- Input Hidden untuk Tanggal dan Waktu -->
+            <input type="hidden" id="tanggalHidden" name="tanggal">
+            <input type="hidden" id="waktuHidden" name="waktu">
+
+            <!-- Input Hidden untuk Jurusan -->
+            <input type="hidden" id="inputJurusan" name="inputJurusan">
+
+            <!-- Pilihan Mata Kuliah -->
+            <div class="form-group">
+                <label for="inputMataKuliah">Mata Kuliah</label>
+                <select id="inputMataKuliah" name="inputMataKuliah" required>
+                    <option value="Algoritma">Algoritma</option>
+                    <option value="Pemrograman Web">Pemrograman Web</option>
+                    <option value="Statistika">Statistika</option>
+                </select>
+            </div>
+
+            <!-- Input untuk Semester -->
+            <div class="form-group">
+                <label for="inputSemester">Semester</label>
+                <input type="text" id="inputSemester" name="inputSemester" placeholder="Masukkan Semester Anda" required>
+            </div>
+
 
             <!-- Kamera -->
             <div class="form-group">
@@ -55,7 +83,7 @@
 <div class="link-container">
     <p>
         Lihat data absensi di
-        <a href="https://docs.google.com/spreadsheets/d/1cL1VhyTap6kFuTdmJ_isPgKo4V3yHfHZn5WfVjjTsNg/edit?usp=sharing"
+        <a href="https://docs.google.com/spreadsheets/d/1JcrfhpWnf9h-FPOHFqohBYoNIoTAekGUPBAJm1rOgXA/edit?usp=sharing"
            target="_blank">Google Sheets</a>
     </p>
 </div>
