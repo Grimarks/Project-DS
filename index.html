@@ -10,7 +10,9 @@
 <div class="container">
     <h1>Absensi Online</h1>
     <form action="https://script.google.com/macros/s/AKfycbwwNxYRNEpbseQ5SbP3IA5ZZWCmL5uaEnIZaExcRtcKhqKuuRe5VaypQXMznHhSBt0m/exec"
-          method="post" enctype="multipart/form-data" id="absensiForm">
+          method="post"
+          enctype="application/x-www-form-urlencoded"
+          id="absensiForm">
 
         <!-- NFC Scan -->
         <div class="form-group">
@@ -24,28 +26,30 @@
             <div class="form-group">
                 <label for="lokasiInput">Lokasi Anda</label>
                 <p id="lokasiInput" class="input-static">Mendeteksi lokasi...</p>
-                <!-- Input hidden untuk menyimpan lokasi -->
                 <input type="hidden" id="lokasiHidden" name="lokasiInput">
-
             </div>
 
             <div class="form-group">
                 <label for="inputNama">Nama Lengkap</label>
-<!--                Tidak perlu ada Input lagi dari user, semuanya langsung ngambil data dari kartu NFC-->
-                <input type="text" id="inputNama" name="inputNama" placeholder="Masukkan nama Anda" required>
+                <p id="inputNamaText" class="input-static">Menunggu scan...</p>
+                <input type="hidden" id="inputNama" name="inputNama">
             </div>
 
             <div class="form-group">
                 <label for="inputNIM">NIM</label>
-                <input type="text" id="inputNIM" name="inputNIM" placeholder="Masukkan NIM Anda" required>
+                <p id="inputNIMText" class="input-static">Menunggu scan...</p>
+                <input type="hidden" id="inputNIM" name="inputNIM">
+            </div>
+
+            <div class="form-group">
+                <label for="inputJurusan">Jurusan</label>
+                <p id="inputJurusanText" class="input-static">Menunggu scan...</p>
+                <input type="hidden" id="inputJurusan" name="inputJurusan">
             </div>
 
             <!-- Input Hidden untuk Tanggal dan Waktu -->
-            <input id="tanggalHidden" name="tanggal">
-            <input id="waktuHidden" name="waktu">
-
-            <!-- Input Hidden untuk Jurusan -->
-            <input id="inputJurusan" name="inputJurusan">
+            <input type="hidden" id="tanggalHidden" name="tanggal">
+            <input type="hidden" id="waktuHidden" name="waktu">
 
             <!-- Pilihan Mata Kuliah -->
             <div class="form-group">
@@ -61,18 +65,6 @@
             <div class="form-group">
                 <label for="inputSemester">Semester</label>
                 <input type="text" id="inputSemester" name="inputSemester" placeholder="Masukkan Semester Anda" required>
-            </div>
-
-
-            <!-- Kamera -->
-            <div class="form-group">
-                <label for="inputFoto">Ambil Foto</label>
-                <div class="camera">
-                    <video id="video" autoplay></video>
-                    <canvas id="canvas"></canvas>
-                </div>
-                <button type="button" id="capture" class="btn" disabled>Capture Foto</button>
-                <input type="hidden" id="inputFoto" name="foto">
             </div>
 
             <button type="submit" class="btn submit-btn">Kirim Data</button>
