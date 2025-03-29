@@ -17,7 +17,7 @@ document.getElementById("startNfc").addEventListener("click", async () => {
             nfcScanned = true;
 
             // Parsing Data NFC
-            const regex = /Name:\s*(.+)\nNIM:\s*(.+)\nJurusan:\s*(.+)/;
+            const regex = /Name :\s*(.+)\nNIM :\s*(.+)\nJurusan :\s*(.+)/;
             const match = rawData.match(regex);
 
             if (match) {
