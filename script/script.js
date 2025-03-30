@@ -55,7 +55,7 @@ function activateCamera() {
         });
 }
 
-// Capture Foto dan Simpan sebagai Blob
+// Capture Foto
 document.getElementById("capture").addEventListener("click", () => {
     if (!nfcScanned) {
         alert("Silakan scan NFC terlebih dahulu!");
@@ -70,26 +70,13 @@ document.getElementById("capture").addEventListener("click", () => {
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    canvas.toBlob(blob => {
-        const formData = new FormData();
-        formData.append("Foto", blob, "absensi.png");
+    // Simpan hasil foto dalam bentuk Base64
+    const fotoBase64 = canvas.toDataURL("image/png");
+    document.getElementById("Foto").value = fotoBase64;
 
-        fetch("https://script.google.com/macros/s/AKfycbwwNxYRNEpbseQ5SbP3IA5ZZWCmL5uaEnIZaExcRtcKhqKuuRe5VaypQXMznHhSBt0m/exec", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === "success") {
-                    alert("Foto berhasil diunggah!");
-                    document.getElementById("Foto").value = data.fileUrl; // Simpan link ke spreadsheet
-                } else {
-                    alert("Gagal mengunggah foto!");
-                }
-            })
-            .catch(error => console.error("Error mengunggah foto:", error));
-    }, "image/png");
+    alert("Foto berhasil diambil!");
 });
+
 
 // Mendapatkan lokasi otomatis
 navigator.geolocation.getCurrentPosition(pos => {
