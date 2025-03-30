@@ -17,7 +17,7 @@ document.getElementById("startNfc").addEventListener("click", async () => {
             nfcScanned = true;
 
             // Parsing Data NFC
-            const regex = /Name : \s*(.+)\nNIM : \s*(.+)\nJurusan : \s*(.+)/;
+            const regex = /Name:\s*(.+)\nNIM:\s*(.+)\nJurusan:\s*(.+)/;
             const match = rawData.match(regex);
 
             if (match) {
@@ -30,13 +30,10 @@ document.getElementById("startNfc").addEventListener("click", async () => {
 
             // Set tanggal dan waktu otomatis
             const now = new Date();
-            const tanggal = now.toLocaleDateString('id-ID');
-            const waktu = now.toLocaleTimeString('id-ID');
+            document.getElementById("tanggalHidden").value = now.toLocaleDateString('id-ID');
+            document.getElementById("waktuHidden").value = now.toLocaleTimeString('id-ID');
 
-            document.getElementById("tanggalHidden").value = tanggal;
-            document.getElementById("waktuHidden").value = waktu;
-
-            // Tampilkan form tanpa scan NFC
+            // Tampilkan form
             document.getElementById("formSection").style.display = "block";
             document.getElementById("capture").disabled = false;
             activateCamera();
@@ -47,25 +44,18 @@ document.getElementById("startNfc").addEventListener("click", async () => {
     }
 });
 
-// // Bypass NFC dan langsung tampilkan form
-// document.getElementById("formSection").style.display = "block";
-// document.getElementById("capture").disabled = false;
-
-
 // Aktifkan Kamera
 function activateCamera() {
-    if (nfcScanned) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                document.getElementById("video").srcObject = stream;
-            })
-            .catch(() => {
-                alert("Kamera tidak tersedia!");
-            });
-    }
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            document.getElementById("video").srcObject = stream;
+        })
+        .catch(() => {
+            alert("Kamera tidak tersedia!");
+        });
 }
 
-// Capture Foto
+// Capture Foto dan Simpan sebagai Blob
 document.getElementById("capture").addEventListener("click", () => {
     if (!nfcScanned) {
         alert("Silakan scan NFC terlebih dahulu!");
@@ -80,37 +70,35 @@ document.getElementById("capture").addEventListener("click", () => {
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    document.getElementById("inputFoto").value = canvas.toDataURL("image/png");
+    canvas.toBlob(blob => {
+        const formData = new FormData();
+        formData.append("Foto", blob, "absensi.png");
 
-    alert("Foto berhasil diambil!");
+        fetch("https://script.google.com/macros/s/AKfycbwwNxYRNEpbseQ5SbP3IA5ZZWCmL5uaEnIZaExcRtcKhqKuuRe5VaypQXMznHhSBt0m/exec", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === "success") {
+                    alert("Foto berhasil diunggah!");
+                    document.getElementById("Foto").value = data.fileUrl; // Simpan link ke spreadsheet
+                } else {
+                    alert("Gagal mengunggah foto!");
+                }
+            })
+            .catch(error => console.error("Error mengunggah foto:", error));
+    }, "image/png");
 });
 
 // Mendapatkan lokasi otomatis
-const options = {
-    maximumAge: 0,
-    enableHighAccuracy: true,
-    timeout: 15000,
-};
-
-const success = (pos) => {
+navigator.geolocation.getCurrentPosition(pos => {
     const coords = pos.coords;
-    const latitude = coords.latitude;
-    const longitude = coords.longitude;
-    const lokasiString = `Latitude: ${latitude}, Longitude: ${longitude}`;
+    const lokasiString = `Latitude: ${coords.latitude}, Longitude: ${coords.longitude}`;
 
-    // Tampilkan lokasi dalam form
-    document.getElementById("lokasiInput").innerHTML = lokasiString;
-
-    // Simpan lokasi ke input hidden agar terkirim saat submit
+    document.getElementById("Lokasi").textContent = lokasiString;
     document.getElementById("lokasiHidden").value = lokasiString;
-
-    console.log(`Lokasi Anda: ${lokasiString}`);
-};
-
-const error = (err) => {
+}, err => {
     console.log(`Gagal mendapatkan lokasi: ${err.message}`);
-    document.getElementById("lokasiInput").textContent = "Gagal mendapatkan lokasi.";
-};
-
-// Panggil geolocation saat halaman dimuat
-navigator.geolocation.getCurrentPosition(success, error, options);
+    document.getElementById("Lokasi").textContent = "Gagal mendapatkan lokasi.";
+});
