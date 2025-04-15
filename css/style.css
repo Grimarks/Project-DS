@@ -1,124 +1,97 @@
+/* home.css */
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #4facfe, #00f2fe);
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px; /* Agar tidak terlalu mepet di layar kecil */
-    box-sizing: border-box;
+    padding: 0;
 }
 
 .container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    width: 90%;
     max-width: 500px;
-    text-align: center;
-    box-sizing: border-box;
+    margin: auto;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
 }
 
 h1 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
 }
 
 .form-group {
-    margin-bottom: 20px;
-    text-align: left;
+    margin-bottom: 1rem;
 }
 
 label {
+    display: block;
     font-weight: bold;
-    margin-bottom: 5px;
-    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+select,
+button,
+p.input-static {
+    width: 100%;
+    padding: 0.5rem;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .input-static {
-    background: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    box-sizing: border-box;
+input[readonly] {
+    background-color: #eaeaea;
+    cursor: not-allowed;
 }
 
-/* Bagian Kamera */
-.camera {
-    display: flex;
-    flex-wrap: wrap; /* Agar video dan canvas tidak saling menekan di layar kecil */
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-video, canvas {
-    width: 100%; /* Video dan Canvas memenuhi layar di mode mobile */
-    max-width: 220px; /* Batasan agar tetap proporsional di layar besar */
-    height: auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Tombol */
 .btn {
-    width: 100%;
-    padding: 12px;
+    background-color: #3498db;
+    color: white;
     border: none;
+    padding: 0.7rem;
     border-radius: 5px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background 0.3s;
-    font-weight: bold;
 }
 
 .btn:hover {
-    background: #3b8ac4;
-    color: #fff;
+    background-color: #2980b9;
 }
 
-.submit-btn {
-    background: #4facfe;
-    color: white;
+.camera {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* 📌 Responsif untuk layar kecil (Mobile) */
+video, canvas {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.link-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
 @media (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 1rem;
+    }
+
+    input, select, button {
+        font-size: 1rem;
     }
 
     h1 {
-        font-size: 1.3rem;
-    }
-
-    label, input, .input-static, .btn {
-        font-size: 0.9rem;
-    }
-
-    .camera {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    video, canvas {
-        width: 100%;
-        max-width: 100%;
+        font-size: 1.5rem;
     }
 }
