@@ -1,4 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Dummy NFC Scan
+    document.getElementById("scanDummy").addEventListener("click", () => {
+        const dummyData = `Nama: Darrell Satriano\nNIM: 09021282328049\nJurusan: Teknik Informatika`;
+
+        document.getElementById("nfcData").innerText = dummyData;
+
+        const regex = /Nama:\s*(.*?)\s*NIM:\s*(\d+)\s*Jurusan:\s*(.+)/s;
+        const match = dummyData.match(regex);
+
+        if (match) {
+            const [_, nama, nim, jurusan] = match;
+
+            document.getElementById("Name").value = nama.trim();
+            document.getElementById("NIM").value = nim.trim();
+            document.getElementById("inputJurusan").value = jurusan.trim();
+            document.getElementById("Jurusan").innerText = jurusan.trim();
+
+            // Tampilkan form
+            document.getElementById("formSection").style.display = "block";
+            document.getElementById("capture").disabled = false;
+        }
+    });
+
+    
     // Format tanggal & waktu
     const now = new Date();
     document.getElementById("tanggalHidden").value = now.toLocaleDateString('id-ID');
