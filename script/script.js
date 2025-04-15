@@ -107,3 +107,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+document.getElementById("absensiForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    const formData = new FormData(this);
+
+    fetch('https://script.google.com/macros/s/AKfycbwwNxYRNEpbseQ5SbP3IA5ZZWCmL5uaEnIZaExcRtcKhqKuuRe5VaypQXMznHhSBt0m/exec', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result === 'success') {
+            alert('Data berhasil dikirim');
+        } else {
+            alert('Terjadi kesalahan: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('Kesalahan jaringan: ' + error.message);
+    });
+});
+
