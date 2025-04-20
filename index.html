@@ -20,68 +20,80 @@
         </div>
 
         <div id="formSection" style="display: none;">
-        <div class="form-group">
-            <label>Lokasi Anda</label>
-            <p id="lokasi" class="input-static">Mendeteksi lokasi...</p>
-            <input type="hidden" id="lokasiHidden" name="Lokasi">
-        </div>
-
-        <input type="hidden" id="tanggalHidden" name="Tanggal">
-        <input type="hidden" id="waktuHidden" name="Waktu">
-
-        <div class="form-group">
-            <label for="Name">Nama Lengkap</label>
-            <input type="text" id="Name" name="Name" placeholder="Mengambil data nama Anda">
-        </div>
-
-        <div class="form-group">
-            <label for="NIM">NIM</label>
-            <input type="text" id="NIM" name="NIM" placeholder="Mengambil data NIM Anda">
-        </div>
-
-        <div class="form-group">
-            <label for="Jurusan">Jurusan</label>
-            <p id="Jurusan" class="input-static">Menunggu scan...</p>
-            <input type="hidden" id="inputJurusan" name="Jurusan">
-        </div>
-
-        <div class="form-group">
-            <label for="Mata_Kuliah">Mata Kuliah</label>
-            <select id="Mata_Kuliah" name="Mata_Kuliah" required>
-                <option value="" disabled selected>Pilih mata kuliah</option>
-                <option value="Algoritma">Algoritma</option>
-                <option value="Pemrograman Web">Pemrograman Web</option>
-                <option value="Statistika">Statistika</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="Semester">Semester</label>
-            <select id="Semester" name="Semester" required>
-                <option value="" disabled selected>Pilih semester</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">7+</option>
-            </select>
-        </div>
-
-        <!-- Foto -->
-        <div class="form-group">
-            <label for="inputFoto">Ambil Foto</label>
-            <div class="camera">
-                <video id="video" autoplay></video>
-                <canvas id="canvas"></canvas>
+            <div class="form-group">
+                <label>Lokasi Anda</label>
+                <p id="lokasi" class="input-static">Mendeteksi lokasi...</p>
+                <input type="hidden" id="lokasiHidden" name="Lokasi">
             </div>
-            <button type="button" id="capture" class="btn">Capture Foto</button>
-            <input class="form-control-file" type="hidden" id="inputFoto" name="Foto">
-        </div>
 
-        <button type="submit" id="submitBtn" class="btn submit-btn">Kirim Data</button>
+            <input type="hidden" id="tanggalHidden" name="Tanggal">
+            <input type="hidden" id="waktuHidden" name="Waktu">
+
+            <div class="form-group">
+                <label for="Name">Nama Lengkap</label>
+                <input type="text" id="Name" name="Name" placeholder="Mengambil data nama Anda">
+            </div>
+
+            <div class="form-group">
+                <label for="NIM">NIM</label>
+                <input type="text" id="NIM" name="NIM" placeholder="Mengambil data NIM Anda">
+            </div>
+
+            <div class="form-group">
+                <label for="Jurusan">Jurusan</label>
+                <p id="Jurusan" class="input-static">Menunggu scan...</p>
+                <input type="hidden" id="inputJurusan" name="Jurusan">
+            </div>
+
+            <div class="form-group">
+                <label for="Semester">Semester</label>
+                <select id="Semester" name="Semester" required>
+                    <option value="" disabled selected>Pilih semester</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="lainnya">Lainnya</option>
+                </select>
+
+                <!-- Input manual semester (disembunyikan awalnya) -->
+                <div id="semesterManualContainer" style="display: none;">
+                    <label for="Semester_Manual">Masukkan Semester:</label>
+                    <input type="number" id="Semester_Manual" name="Semester_Manual" min="1" max="10" placeholder="Contoh: 7" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Mata_Kuliah">Mata Kuliah</label>
+                <!-- Select untuk daftar mata kuliah otomatis -->
+                <select id="Mata_Kuliah" name="Mata_Kuliah" required>
+                    <option value="" disabled selected>Pilih mata kuliah</option>
+                    <option value="Matematika">Matematika</option>
+                    <option value="Fisika">Fisika</option>
+                </select>
+
+                <!-- Input text untuk mata kuliah manual -->
+                <input type="text" id="Mata_Kuliah_Manual" name="Mata_Kuliah_Manual" placeholder="Ketik nama mata kuliah" list="MataKuliahList" style="display: none; margin-top: 10px;" />
+                <datalist id="MataKuliahList"></datalist>
+            </div>
+
+
+            <!-- Foto -->
+            <div class="form-group">
+                <label for="inputFoto">Ambil Foto</label>
+                <div class="camera">
+                    <video id="video" autoplay></video>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <button type="button" id="capture" class="btn">Capture Foto</button>
+                <input class="form-control-file" type="hidden" id="inputFoto" name="Foto">
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn submit-btn">Kirim Data</button>
         </div>
     </form>
 </div>
@@ -94,7 +106,6 @@
 </div>
 
 <script src="./script/script.js"></script>
+<script src="./Database/mata_kuliah.js"></script>
 </body>
 </html>
-
-
