@@ -138,6 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("absensiForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
+        const nimField = document.getElementById("NIM");
+        nimField.value = "'" + nimField.value; // Tambahkan tanda petik satu di depan
+
         const formData = new FormData(this);
         const semesterValue = document.getElementById("Semester").value;
 
