@@ -137,11 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Submit form to Google Apps Script
     document.getElementById("absensiForm").addEventListener("submit", function (event) {
         event.preventDefault();
-
+        
         const nimField = document.getElementById("NIM");
-        nimField.value = "'" + nimField.value; // Tambahkan tanda petik satu di depan
-
         const formData = new FormData(this);
+        formData.set("NIM", "'" + nimField.value); //Hanya diubah untuk dikirim
         const semesterValue = document.getElementById("Semester").value;
 
         if (semesterValue === "lainnya") {
